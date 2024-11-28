@@ -1,8 +1,10 @@
 #include "Player.h"
+#include "iostream"
 
 
 Player::Player(GameMechs* thisGMRef)
 {
+    
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
