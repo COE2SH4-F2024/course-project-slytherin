@@ -7,7 +7,7 @@ Player::Player(GameMechs* thisGMRef)
     playerPosList = new objPosArrayList();
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    playerPosList -> insertHead(objPos(11,5,'*'));
+    playerPosList->insertHead(objPos(11,5,'*'));
 
   
 }
@@ -55,9 +55,9 @@ void Player::updatePlayerDir()
 
 }
 
-void Player::movePlayer(Food *snakeFood)
+void Player::movePlayer(Food *snakesFood)
 {
-    // PPA3 Finite State Machine logic
+  
 
     objPos nextHead = playerPosList->getHeadElement(); 
 
@@ -117,10 +117,10 @@ void Player::movePlayer(Food *snakeFood)
         return; 
     }
         
-    if (checkFoodConsumption(snakeFood))
+    if (checkFoodConsumption(snakesFood))
     {
         increasePlayerLength();
-        snakeFood->generateFood(playerPosList);
+        snakesFood->generateFood(playerPosList);
     }
 
     playerPosList->insertHead(nextHead); 
@@ -157,7 +157,7 @@ void Player::increasePlayerLength()
 {
     objPos newTail = playerPosList->getTailElement();
 
-    playerPosList->insertTail(objPos(newTail.pos->x,newTail.pos->y,'@')); 
+    playerPosList->insertTail(objPos(newTail.pos->x,newTail.pos->y,'*')); 
 
     mainGameMechsRef->setScore(playerPosList->getSize()-1); 
 }

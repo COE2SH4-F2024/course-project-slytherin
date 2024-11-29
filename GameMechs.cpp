@@ -89,7 +89,7 @@ void GameMechs::setLoseFlag()
 void GameMechs::setInput(char this_input)
 {
     input = this_input;
-    displayInput = this_input;
+    prevInput = this_input;
 
 }
 
@@ -101,13 +101,13 @@ void GameMechs::clearInput()
 
 // More methods should be added here
 
-char GameMechs::getDisplayInput()
+char GameMechs::getPrevInput()
 {
-    return displayInput;
+    return prevInput;
 }
 
-void GameMechs::setScore(int value)
+void GameMechs::setScore(int val)
 {
     
-    score = value;
+    score = val;
 }

@@ -1,14 +1,10 @@
 #include "objPosArrayList.h"
-
-// Paste your Tested implementation here.
-// Paste your Tested implementation here.
-// Paste your Tested implementation here.
-
 #include <iostream>
+
 using namespace std;
 
 
-objPosArrayList::objPosArrayList()      //Constructor
+objPosArrayList::objPosArrayList()//Constructor
 {
     arrayCapacity = ARRAY_MAX_CAP;
     listSize = 0;
@@ -20,10 +16,10 @@ objPosArrayList::objPosArrayList()      //Constructor
     }
 }
 
-objPosArrayList::objPosArrayList(int foodListSize)      //Constructor
+objPosArrayList::objPosArrayList(int bucketSize)      //Constructor
 {
     arrayCapacity = ARRAY_MAX_CAP;
-    listSize = foodListSize;
+    listSize = bucketSize;
     aList = new objPos[ARRAY_MAX_CAP];  // allocate the array
 
     for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) // intialize all elements to default objpos
@@ -32,7 +28,7 @@ objPosArrayList::objPosArrayList(int foodListSize)      //Constructor
     }
 }
 
-objPosArrayList::~objPosArrayList()     //Destructor 
+objPosArrayList::~objPosArrayList()  //Destructor 
 {
     delete[] aList;
 }

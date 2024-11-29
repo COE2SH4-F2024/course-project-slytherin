@@ -26,7 +26,7 @@ class Player
         void updatePlayerDir();
 
         // Moves the player based on the current direction and game logic
-        void movePlayer(Food* newSnakesFood);
+        void movePlayer(Food* snakesFood);
 
         // Returns the current direction of the player
         Dir getFSMState(); 

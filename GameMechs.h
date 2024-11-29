@@ -13,7 +13,7 @@ class GameMechs
 {
     private:
         char input;
-        char displayInput;
+        char prevInput;
         bool exitFlag;
         bool loseFlag;
         int score;
@@ -36,14 +36,14 @@ class GameMechs
         char getInput() const;
         void setInput(char this_input);
         void clearInput();
-        char getDisplayInput();
+        char getPrevInput();
 
         int getBoardSizeX() const;
         int getBoardSizeY() const;
         
         int getScore() const;
         void incrementScore();
-        void setScore(int value);
+        void setScore(int val);
         
 };
 

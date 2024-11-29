@@ -35,13 +35,14 @@ string gameBoard[10]=
     "####################"  
 };
 
-GameMechs* instance = new GameMechs(20,10);
+GameMechs* gameMechInstance = new GameMechs(20,10);
 
-Player* snakeHead = new Player(instance);
+Player* snakeHead = new Player(gameMechInstance);
 
 Food* snakesFood = nullptr;
 Food* newSnakesFood = nullptr;
 
+int wipeFood;
 
 
 int main(void)
@@ -49,7 +50,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(gameMechInstance->getExitFlagStatus() == false && gameMechInstance->getLoseFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -66,23 +67,88 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-
+    snakesFood = new Food ();
+    snakesFood->generateFood(snakeHead->getPlayerPos());
     exitFlag = false;
 }
 
 void GetInput(void)
 {
+    if (MacUILib_hasChar())
+    {
+    gameMechInstance->setInput(MacUILib_getChar());
+
+    }
+
    
 }
 
 void RunLogic(void)
 {
+    if (gameMechInstance->getInput()== 27){
+        gameMechInstance->setExitTrue();
+    }
+    snakeHead->updatePlayerDir();
+    snakeHead->movePlayer(snakesFood);
+
+    gameMechInstance->clearInput();  
     
 }
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();  
+
+    objPosArrayList* myCharacter = snakeHead->getPlayerPos();
+
+    for (int i =0; i<gameMechInstance->getBoardSizeY();i++){
+        for (int j=0; j<gameMechInstance->getBoardSizeX(); j++){
+            int printed =0; 
+
+            for (int  k = 0; k<myCharacter->getSize(); k++){
+            objPos snake = myCharacter->getElement(k);
+            //if the character position is met in the gameboard, print character
+            if (snake.pos->x== j && snake.pos->y == i){
+                MacUILib_printf("%c", snake.getSymbol());
+                printed = 1; 
+            }
+            }
+             if (printed!=1){
+                for (int foodIndex =0; foodIndex < snakesFood->bucketSize(); foodIndex++){
+
+                    objPos foodGeneration = snakesFood->getFromBucket(foodIndex);
+
+                    if(foodGeneration.pos->x == j && foodGeneration.pos->y == i)
+                    {   printed =1; 
+                        MacUILib_printf("%c", foodGeneration.getSymbol());
+                        break; 
+                    }
+                }
+            }
+
+            if (printed!=1){
+                MacUILib_printf("%c", gameBoard[i][j]);
+                 
+            }
+            
+            
+            
+        
+        
+    }
+    MacUILib_printf("\n");
+
+
+    
+
+  }
+
+
+MacUILib_printf("\n          \n");
+MacUILib_printf("Key Pressed: %c\n", gameMechInstance->getPrevInput());
+MacUILib_printf("Current state of FSM: %d\n",snakeHead->getFSMState());
+MacUILib_printf("Score: %d", gameMechInstance->getScore());
+      
 }
 
 void LoopDelay(void)
@@ -93,7 +159,17 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    delete gameMechInstance;
+    delete snakeHead;
+    delete snakesFood;
 
+    MacUILib_clearScreen();    
+    if(gameMechInstance->getLoseFlagStatus() == true ){
+
+        MacUILib_printf ("Tough Luck, try again!"); 
+    }
+    else {
+        MacUILib_printf("Bye, buddy"); 
+    }
     MacUILib_uninit();
 }
