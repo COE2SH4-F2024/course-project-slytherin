@@ -4,7 +4,7 @@
 
 Player::Player(GameMechs* thisGMRef)
 {
-    
+
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
