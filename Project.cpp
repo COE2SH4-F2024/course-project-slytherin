@@ -144,10 +144,17 @@ void DrawScreen(void)
   }
 
 
-MacUILib_printf("\n          \n");
-MacUILib_printf("Key Pressed: %c\n", gameMechInstance->getPrevInput());
-MacUILib_printf("Current state of FSM: %d\n",snakeHead->getFSMState());
-MacUILib_printf("Score: %d", gameMechInstance->getScore());
+   
+    MacUILib_printf("Score: %d\n", gameMechInstance->getScore());
+    MacUILib_printf("Pressed Key: %c\n", gameMechInstance->getPrevInput());
+    MacUILib_printf("Current state of FSM: %d\n",snakeHead->getFSMState());
+
+    MacUILib_printf("\nInstructions:\n");
+    MacUILib_printf("W - Move Up\n");
+    MacUILib_printf("A - Move Left\n");
+    MacUILib_printf("S - Move Down\n");
+    MacUILib_printf("D - Move Right\n");
+    MacUILib_printf("ESC - Exit Game\n");
       
 }
 
