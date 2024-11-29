@@ -159,9 +159,9 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    delete gameMechInstance;
-    delete snakeHead;
-    delete snakesFood;
+    // delete gameMechInstance;
+    // delete snakeHead;
+    // delete snakesFood;
 
 
 
@@ -173,5 +173,10 @@ void CleanUp(void)
     else {
         MacUILib_printf("Bye, buddy"); 
     }
+
+    delete gameMechInstance;
+    delete snakeHead;
+    delete snakesFood;
+
     MacUILib_uninit();
 }
