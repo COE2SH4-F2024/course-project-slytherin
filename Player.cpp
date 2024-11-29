@@ -9,7 +9,7 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
     playerPosList -> insertHead(objPos(11,5,'*'));
 
-    // more actions to be included
+  
 }
 
 
@@ -19,7 +19,7 @@ Player::~Player()
     delete playerPosList;
 }
 
-objPos Player::getPlayerPos() const
+objPosArrayList* Player::getPlayerPos() const
 {
     // return the reference to the playerPos arrray list
     return playerPosList;
@@ -55,7 +55,7 @@ void Player::updatePlayerDir()
 
 }
 
-void Player::movePlayer()
+void Player::movePlayer(Food *snakeFood)
 {
     // PPA3 Finite State Machine logic
 
@@ -138,7 +138,7 @@ Player::Dir Player::getFSMState()
     return myDir; 
 }
 
-bool Player::checkFoodConsumption(Food *snakesFood)
+bool Player::checkFoodConsumption(Food* snakesFood)
 {
     for (int i =0; i < snakesFood->bucketSize(); i++)
     {

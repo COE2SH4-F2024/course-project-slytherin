@@ -6,44 +6,48 @@
 #include "objPosArrayList.h"
 #include "Food.h"
 
-//include food.h
 
 class Player
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
-    
     public:
-        //Directions
+        // Enum to define movement directions for the player
         enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  
 
+        // Constructor to initialize the player with a reference to the game mechanics
         Player(GameMechs* thisGMRef);
+
+        // Destructor 
         ~Player();
 
+        // Returns a pointer to the player's position list
         objPosArrayList* getPlayerPos() const;      
         
+        // Updates the player's direction based on input
         void updatePlayerDir();
 
-        void movePlayer(Food *newSnakesFood);
+        // Moves the player based on the current direction and game logic
+        void movePlayer(Food* newSnakesFood);
 
+        // Returns the current direction of the player
         Dir getFSMState(); 
 
-        bool checkFoodConsumption (Food* snakesFood);
+        // Checks if the player has consumed food
+        bool checkFoodConsumption(Food* snakesFood);
 
+        // Increases the player's length (e.g., when food is consumed)
         void increasePlayerLength(); 
-        
+
+        // Checks if the player has collided with itself
         bool checkSelfCollision(); 
 
-
     private:
-        objPosArrayList playerPosList;      
+        // A list to track the positions of the player (e.g., snake body segments)
+        objPosArrayList* playerPosList;      
+
+        // The current direction of the player
         Dir myDir;
 
-        // Need a reference to the Main Game Mechanisms
+        // Reference to the main game mechanics
         GameMechs* mainGameMechsRef;
 };
 

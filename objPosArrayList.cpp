@@ -20,10 +20,10 @@ objPosArrayList::objPosArrayList()      //Constructor
     }
 }
 
-objPosArrayList::objPosArrayList(int bucketSize)      //Constructor
+objPosArrayList::objPosArrayList(int foodListSize)      //Constructor
 {
     arrayCapacity = ARRAY_MAX_CAP;
-    listSize = bucketSize;
+    listSize = foodListSize;
     aList = new objPos[ARRAY_MAX_CAP];  // allocate the array
 
     for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) // intialize all elements to default objpos

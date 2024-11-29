@@ -6,9 +6,10 @@
 #include <time.h>
 #include "Food.h"
 
+
 using namespace std;
 
-#define DELAY_CONST 100000
+#define DELAY_CONST 120000
 
 bool exitFlag;
 
@@ -22,21 +23,21 @@ void CleanUp(void);
 string gameBoard[10]=
 
 {
-    {"####################"},  
-    {"#                  #"},   
-    {"#                  #"},
-    {"#                  #"},
-    {"#                  #"},
-    {"#                  #"},
-    {"#                  #"},
-    {"#                  #"},
-    {"#                  #"},
-    {"####################"}  
+    "####################",  
+    "#                  #",   
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "####################"  
 };
 
 GameMechs* instance = new GameMechs(20,10);
 
-Player* snakeHead = new Player(instance)
+Player* snakeHead = new Player(instance);
 
 Food* snakesFood = nullptr;
 Food* newSnakesFood = nullptr;
@@ -86,7 +87,7 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(DELAY_CONST); // 0.1s delay
+    MacUILib_Delay(DELAY_CONST); // using delay from above
 }
 
 

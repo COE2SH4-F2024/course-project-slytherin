@@ -1,13 +1,13 @@
 #include "GameMechs.h"
 
-// GameMechs::GameMechs()
-// {
-//     score = 0;
-//     exitFlag = false;
-//     loseFlag = false;
+GameMechs::GameMechs()
+{
+    score = 0;
+    exitFlag = false;
+    loseFlag = false;
     
     
-// }
+}
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
