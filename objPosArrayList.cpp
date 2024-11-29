@@ -31,6 +31,11 @@ objPosArrayList::objPosArrayList(int bucketSize)      //Constructor
 objPosArrayList::~objPosArrayList()  //Destructor 
 {
     delete[] aList;
+    //    if(aList != nullptr)
+    //  {
+    //     delete[] aList;
+    //     aList = nullptr;
+    //  }
 }
 
 objPosArrayList::objPosArrayList(objPosArrayList const &arr)    //Copy constructor
@@ -49,6 +54,7 @@ objPosArrayList& objPosArrayList::operator =(objPosArrayList const &arr)
 {
     if (this != &arr)
     {
+       
         listSize = arr.listSize;
         arrayCapacity = arr.arrayCapacity;
 

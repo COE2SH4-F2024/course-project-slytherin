@@ -21,8 +21,13 @@ objPos::objPos(int xPos, int yPos, char sym)
 // Destructor, deletes dynamically allocated memory for position
 objPos::~objPos()
 {
-    delete pos;
-}
+   delete pos;
+//     if(pos != nullptr)
+//      {
+//         delete pos;
+//         pos = nullptr;
+//      }
+ }
 
 // Copy constructor, creates a deep copy of another objPos object
 objPos::objPos(const objPos &a)

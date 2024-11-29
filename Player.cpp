@@ -16,7 +16,12 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     // delete any heap members here
-    delete playerPosList;
+    //delete playerPosList;
+    if(playerPosList != nullptr)
+     {
+        delete playerPosList;
+        playerPosList = nullptr;
+     }
 }
 
 objPosArrayList* Player::getPlayerPos() const

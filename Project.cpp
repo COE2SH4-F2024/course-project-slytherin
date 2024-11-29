@@ -163,6 +163,8 @@ void CleanUp(void)
     delete snakeHead;
     delete snakesFood;
 
+
+
     MacUILib_clearScreen();    
     if(gameMechInstance->getLoseFlagStatus() == true ){
 

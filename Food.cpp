@@ -112,5 +112,7 @@ objPos Food::getFromBucket(int index)
 // Destructor to free allocated memory
 Food::~Food()
 {
-    delete foodPos.pos; // Free memory for position
+   // delete foodPos.pos; // Free memory for position
+
+
 }
