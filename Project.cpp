@@ -1,6 +1,10 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "Player.h"
+#include "GameMechs.h"
+#include <time.h>
+#include "Food.h"
 
 using namespace std;
 
@@ -14,6 +18,28 @@ void RunLogic(void);
 void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
+
+string gameBoard[10]=
+
+{
+    {"####################"},  
+    {"#                  #"},   
+    {"#                  #"},
+    {"#                  #"},
+    {"#                  #"},
+    {"#                  #"},
+    {"#                  #"},
+    {"#                  #"},
+    {"#                  #"},
+    {"####################"}  
+};
+
+GameMechs* instance = new GameMechs(20,10);
+
+Player* snakeHead = new Player(instance)
+
+Food* snakesFood = nullptr;
+Food* newSnakesFood = nullptr;
 
 
 
