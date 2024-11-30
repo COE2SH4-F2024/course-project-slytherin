@@ -37,10 +37,12 @@ int main(void)
     while(gameMechInstance->getExitFlagStatus() == false && gameMechInstance->getLoseFlagStatus() == false)  
     {
         GetInput();
-        if (RunLogic() != 1);
-        {
-         DrawScreen();
-        }
+
+        if (RunLogic() != 1)
+        ;
+        
+        DrawScreen();
+        
         
         LoopDelay();
     }
@@ -84,7 +86,7 @@ int RunLogic(void)
     
     
     gameMechInstance->clearInput();  
-    
+        return 0;
 }
 
 void DrawScreen(void)
@@ -177,12 +179,6 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    // delete gameMechInstance;
-    // delete snakeHead;
-    // delete snakesFood;
-
-
-
     MacUILib_clearScreen();    
     if(gameMechInstance->getLoseFlagStatus() == true ){
 

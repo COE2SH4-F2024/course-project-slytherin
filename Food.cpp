@@ -41,7 +41,7 @@ void Food::generateFood(objPosArrayList* blockOff)
             if (snakeBodyCheck(blockOff, RandNum_x, RandNum_y)) // Check snake body overlap
                 unique = 0;
 
-            if (existingInBucket = inBucketCheck()) // Check for duplicates in bucket
+            if ((existingInBucket = inBucketCheck()))// Check for duplicates in bucket
                 unique = 0;
 
         } while (unique == 0); // Repeat until unique food is found

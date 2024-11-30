@@ -43,6 +43,10 @@ objPos& objPos::operator=(const objPos &a)
 {
     if (this != &a) // Avoid self-assignment
     {
+        // free existing 
+        delete pos;
+
+        //Allocate new memory and copy values
         this->pos = new Pos;
         this->pos->x = a.pos->x;
         this->pos->y = a.pos->y;
