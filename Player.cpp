@@ -4,10 +4,10 @@
 
 Player::Player(GameMechs* thisGMRef)
 {
-    playerPosList = new objPosArrayList();
+    playerPosList = new objPosArrayList();    // list to track player positions
     mainGameMechsRef = thisGMRef;
-    myDir = STOP;
-    playerPosList->insertHead(objPos(11,5,'*'));
+    myDir = STOP;                             // start with no movement
+    playerPosList->insertHead(objPos(10,5,'*'));    // set initial player position
     backLogCheck = 0;
 
 
@@ -38,23 +38,23 @@ void Player::updatePlayerDir()
 
         char input = mainGameMechsRef->getInput();
         
-        if ((input == 'w' || input == 'W') && myDir != DOWN) 
+        if ((input == 'w' || input == 'W') && myDir != DOWN) // move up unless currently moving down
         {
             myDir = UP;
         }
         
-        else if ((input == 's' || input == 'S') && myDir != UP) 
+        else if ((input == 's' || input == 'S') && myDir != UP)  // move down unless currently moving up
         {
             myDir = DOWN;
         }
         
-        else if ((input == 'a' || input == 'A') && myDir != RIGHT) 
+        else if ((input == 'a' || input == 'A') && myDir != RIGHT)  // move left unless currently moving right
         {
             myDir = LEFT;
 
         }
         
-        else if ((input == 'd' || input == 'D') && myDir != LEFT) 
+        else if ((input == 'd' || input == 'D') && myDir != LEFT)   // move right unless currently moving left
         {
             myDir = RIGHT;
         }
@@ -118,16 +118,16 @@ int Player::movePlayer(Food *snakesFood)
     }
 
     
-    if (checkSelfCollision())
+    if (checkSelfCollision()) // check for collisoins with self and trigger lose condition
     {
         mainGameMechsRef->setLoseFlag();
         return 1; 
     }
-        
-    if (checkFoodConsumption(snakesFood) == 1)
+
+    // check if food has been eaten, generate new food, and update the score based on it 
+    if (checkFoodConsumption(snakesFood) == 1)   
     {
         backLogCheck = 1;
-        //increasePlayerLength();
         snakesFood->generateFood(playerPosList);
         mainGameMechsRef->setScore(mainGameMechsRef->incrementScore(3));
     }
@@ -146,7 +146,7 @@ int Player::movePlayer(Food *snakesFood)
         mainGameMechsRef->setScore(mainGameMechsRef->incrementScore(1));
     }
 
-    if (backLogCheck > 0)
+    if (backLogCheck > 0)  // insert the new head psoiton and delay tail removal for growth if needed
     {
         backLogCheck--;
         playerPosList->insertHead(nextHead);
@@ -172,6 +172,7 @@ Player::Dir Player::getFSMState()
     return myDir; 
 }
 
+
 int Player::checkFoodConsumption(Food* snakesFood)
 {
     for (int i =0; i < snakesFood->bucketSize(); i++)
@@ -180,11 +181,11 @@ int Player::checkFoodConsumption(Food* snakesFood)
 
         if (playerPosList->getHeadElement().pos->x == currentFood.pos->x  && playerPosList->getHeadElement().pos->y == currentFood.pos->y)
         {
-        if (currentFood.symbol == 'A')
+        if (currentFood.symbol == 'A') // if the food eaten is 'A' then you get 3 extra points
             {
                 return 1; 
             }
-            else if(currentFood.symbol == 'a')
+            else if(currentFood.symbol == 'a') // if the food eaten is 'a' then body frows by 3
             {
                 return 2;
             }
@@ -198,16 +199,15 @@ int Player::checkFoodConsumption(Food* snakesFood)
 
 }
 
-void Player::increasePlayerLength()
+void Player::increasePlayerLength()  // increased the length of the snake
 {
     objPos newTail = playerPosList->getTailElement();
 
-    playerPosList->insertTail(objPos(newTail.pos->x,newTail.pos->y,'*')); 
+    playerPosList->insertTail(objPos(newTail.pos->x,newTail.pos->y,'*')); // adds a new segment to the tail
 
-    //mainGameMechsRef->setScore(playerPosList->getSize()-1); 
 }
 
-bool Player::checkSelfCollision()
+bool Player::checkSelfCollision() // checks for self collision by head with any other part of the body of the snake
 {
     objPos playerHead = playerPosList->getHeadElement();
 

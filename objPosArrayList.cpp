@@ -10,10 +10,6 @@ objPosArrayList::objPosArrayList()//Constructor
     listSize = 0;
     aList = new objPos[ARRAY_MAX_CAP];  //allocate array of objPos
 
-    // for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) //initialize all elements to default objPos
-    // {
-    //     aList[i] = objPos();
-    // }
 }
 
 objPosArrayList::objPosArrayList(int bucketSize)      //Constructor
@@ -22,31 +18,23 @@ objPosArrayList::objPosArrayList(int bucketSize)      //Constructor
     listSize = bucketSize;
     aList = new objPos[ARRAY_MAX_CAP];  // allocate the array
 
-    // for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) // intialize all elements to default objpos
-    // {
-    //     aList[i] = objPos();
-    // }
 }
 
 objPosArrayList::~objPosArrayList()  //Destructor 
 {
     delete[] aList;
-    //    if(aList != nullptr)
-    //  {
-    //     delete[] aList;
-    //     aList = nullptr;
-    //  }
+    
 }
 
 objPosArrayList::objPosArrayList(objPosArrayList const &arr)    //Copy constructor
 {
     listSize = arr.listSize;
     arrayCapacity = arr.arrayCapacity;
-    aList = new objPos[ARRAY_MAX_CAP];
+    aList = new objPos[ARRAY_MAX_CAP];  // allocate memory for copy
 
     for (int i = 0; i < listSize - 1; i++)
     {
-        aList[i] = arr.aList[i];
+        aList[i] = arr.aList[i]; // copy elements
     }
 }
 
@@ -60,7 +48,7 @@ objPosArrayList& objPosArrayList::operator =(objPosArrayList const &arr)
 
         for (int i = 0; i < listSize - 1; i++)
         {
-            this->aList[i] = arr.aList[i];
+            this->aList[i] = arr.aList[i]; //copy elements
         }
     }
 
@@ -74,12 +62,12 @@ int objPosArrayList::getSize() const
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    if (listSize == arrayCapacity)  // checking if array is full
+    if (listSize == arrayCapacity)  // checking if the list is full
     {
         cout << "The array is full" << endl;
     }
 
-    for (int i = listSize; i > 0; i--) //shift all elements to the right
+    for (int i = listSize; i > 0; i--) //shift all elements to the right by 1
     {
         aList[i] = aList[i-1];
     }
@@ -99,7 +87,7 @@ void objPosArrayList::insertTail(objPos thisPos)
     listSize++;
 }
 
-void objPosArrayList::removeHead()
+void objPosArrayList::removeHead() 
 {
    if (listSize != arrayCapacity)
    {
@@ -113,7 +101,7 @@ void objPosArrayList::removeHead()
    else
 
    {    
-        cout << "No head" << endl;
+        cout << "No head to remove" << endl;
    }
 }  
 
@@ -126,7 +114,7 @@ void objPosArrayList::removeTail()
 
     else
     {    
-        cout << "No tail" << endl;
+        cout << "No tail to remove" << endl;
     }
 }
 
@@ -150,7 +138,7 @@ objPos objPosArrayList::getElement(int index) const
     else
     {
         cout << "Index Out of Bounds" << endl;
-        return objPos();
+        return objPos(); 
     }
 }
 
