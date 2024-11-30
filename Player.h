@@ -6,6 +6,9 @@
 #include "objPosArrayList.h"
 #include "Food.h"
 
+class Food;
+class GameMechs;
+
 
 class Player
 {
@@ -26,13 +29,13 @@ class Player
         void updatePlayerDir();
 
         // Moves the player based on the current direction and game logic
-        void movePlayer(Food* snakesFood);
+        int movePlayer(Food* snakesFood);
 
         // Returns the current direction of the player
         Dir getFSMState(); 
 
         // Checks if the player has consumed food
-        bool checkFoodConsumption(Food* snakesFood);
+        int checkFoodConsumption(Food* snakesFood);
 
         // Increases the player's length (e.g., when food is consumed)
         void increasePlayerLength(); 
@@ -47,6 +50,7 @@ class Player
         // The current direction of the player
         Dir myDir;
 
+        int backLogCheck;
         // Reference to the main game mechanics
         GameMechs* mainGameMechsRef;
 };

@@ -11,39 +11,23 @@ using namespace std;
 
 #define DELAY_CONST 120000
 
-bool exitFlag;
+
 
 void Initialize(void);
 void GetInput(void);
-void RunLogic(void);
+int RunLogic(void);
 void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-string gameBoard[10]=
 
-{
-    "####################",  
-    "#                  #",   
-    "#                  #",
-    "#                  #",
-    "#                  #",
-    "#                  #",
-    "#                  #",
-    "#                  #",
-    "#                  #",
-    "####################"  
-};
 
+bool exitFlag;
 GameMechs* gameMechInstance = new GameMechs(20,10);
 
 Player* snakeHead = new Player(gameMechInstance);
 
 Food* snakesFood = nullptr;
-Food* newSnakesFood = nullptr;
-
-int wipeFood;
-
 
 int main(void)
 {
@@ -53,8 +37,11 @@ int main(void)
     while(gameMechInstance->getExitFlagStatus() == false && gameMechInstance->getLoseFlagStatus() == false)  
     {
         GetInput();
-        RunLogic();
-        DrawScreen();
+        if (RunLogic() != 1);
+        {
+         DrawScreen();
+        }
+        
         LoopDelay();
     }
 
@@ -83,14 +70,19 @@ void GetInput(void)
    
 }
 
-void RunLogic(void)
+int RunLogic(void)
 {
     if (gameMechInstance->getInput()== 27){
         gameMechInstance->setExitTrue();
     }
     snakeHead->updatePlayerDir();
-    snakeHead->movePlayer(snakesFood);
 
+    if (1 == snakeHead->movePlayer(snakesFood)){
+        MacUILib_clearScreen();
+        return 1;
+    }
+    
+    
     gameMechInstance->clearInput();  
     
 }
@@ -101,13 +93,29 @@ void DrawScreen(void)
 
     objPosArrayList* myCharacter = snakeHead->getPlayerPos();
 
+    string gameBoard[10]=
+
+    {
+        "####################",  
+        "#                  #",   
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "####################"  
+    };
+
     for (int i =0; i<gameMechInstance->getBoardSizeY();i++){
         for (int j=0; j<gameMechInstance->getBoardSizeX(); j++){
             int printed =0; 
 
             for (int  k = 0; k<myCharacter->getSize(); k++){
             objPos snake = myCharacter->getElement(k);
-            //if the character position is met in the gameboard, print character
+
+            //print character if char position is met
             if (snake.pos->x== j && snake.pos->y == i){
                 MacUILib_printf("%c", snake.getSymbol());
                 printed = 1; 
@@ -145,7 +153,10 @@ void DrawScreen(void)
 
 
    
-    MacUILib_printf("Score: %d\n", gameMechInstance->getScore());
+    MacUILib_printf("\nScore: %d\n", gameMechInstance->getScore());
+    MacUILib_printf("A adds 3 to score\n");
+    MacUILib_printf("a adds 3 to snake length\n");
+
     MacUILib_printf("Pressed Key: %c\n", gameMechInstance->getPrevInput());
     MacUILib_printf("Current state of FSM: %d\n",snakeHead->getFSMState());
 
@@ -175,10 +186,10 @@ void CleanUp(void)
     MacUILib_clearScreen();    
     if(gameMechInstance->getLoseFlagStatus() == true ){
 
-        MacUILib_printf ("Tough Luck, try again!"); 
+        MacUILib_printf ("Good attempt, try again!"); 
     }
     else {
-        MacUILib_printf("Bye, buddy"); 
+        MacUILib_printf("Leaving so soon, try again"); 
     }
 
     delete gameMechInstance;

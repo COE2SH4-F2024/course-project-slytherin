@@ -55,9 +55,10 @@ int GameMechs::getScore() const
 
 }
 
-void GameMechs::incrementScore()
+int GameMechs::incrementScore(int increment)
 {
-    score++;
+    score+=increment;
+    return score;
     
 }
 

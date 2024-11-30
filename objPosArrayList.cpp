@@ -10,10 +10,10 @@ objPosArrayList::objPosArrayList()//Constructor
     listSize = 0;
     aList = new objPos[ARRAY_MAX_CAP];  //allocate array of objPos
 
-    for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) //initialize all elements to default objPos
-    {
-        aList[i] = objPos();
-    }
+    // for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) //initialize all elements to default objPos
+    // {
+    //     aList[i] = objPos();
+    // }
 }
 
 objPosArrayList::objPosArrayList(int bucketSize)      //Constructor
@@ -22,10 +22,10 @@ objPosArrayList::objPosArrayList(int bucketSize)      //Constructor
     listSize = bucketSize;
     aList = new objPos[ARRAY_MAX_CAP];  // allocate the array
 
-    for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) // intialize all elements to default objpos
-    {
-        aList[i] = objPos();
-    }
+    // for (int i = 0; i < ARRAY_MAX_CAP - 1; i++) // intialize all elements to default objpos
+    // {
+    //     aList[i] = objPos();
+    // }
 }
 
 objPosArrayList::~objPosArrayList()  //Destructor 
@@ -55,12 +55,12 @@ objPosArrayList& objPosArrayList::operator =(objPosArrayList const &arr)
     if (this != &arr)
     {
        
-        listSize = arr.listSize;
-        arrayCapacity = arr.arrayCapacity;
+        this->listSize = arr.listSize;
+        this->arrayCapacity = arr.arrayCapacity;
 
         for (int i = 0; i < listSize - 1; i++)
         {
-            aList[i] = arr.aList[i];
+            this->aList[i] = arr.aList[i];
         }
     }
 

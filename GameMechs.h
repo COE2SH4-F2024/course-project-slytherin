@@ -3,11 +3,15 @@
 
 #include <cstdlib>
 #include <time.h>
-
+#include "Player.h"
+#include "Food.h"
 #include "objPos.h"
 #include "objPosArrayList.h"
 
 using namespace std;
+
+class Food;
+class Player;
 
 class GameMechs
 {
@@ -42,7 +46,7 @@ class GameMechs
         int getBoardSizeY() const;
         
         int getScore() const;
-        void incrementScore();
+        int incrementScore(int);
         void setScore(int val);
         
 };

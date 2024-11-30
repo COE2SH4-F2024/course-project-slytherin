@@ -8,6 +8,8 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
     playerPosList->insertHead(objPos(11,5,'*'));
+    backLogCheck = 0;
+
 
   
 }
@@ -60,7 +62,7 @@ void Player::updatePlayerDir()
 
 }
 
-void Player::movePlayer(Food *snakesFood)
+int Player::movePlayer(Food *snakesFood)
 {
   
 
@@ -119,22 +121,49 @@ void Player::movePlayer(Food *snakesFood)
     if (checkSelfCollision())
     {
         mainGameMechsRef->setLoseFlag();
-        return; 
+        return 1; 
     }
         
-    if (checkFoodConsumption(snakesFood))
+    if (checkFoodConsumption(snakesFood) == 1)
     {
-        increasePlayerLength();
+        backLogCheck = 1;
+        //increasePlayerLength();
         snakesFood->generateFood(playerPosList);
+        mainGameMechsRef->setScore(mainGameMechsRef->incrementScore(3));
     }
 
-    playerPosList->insertHead(nextHead); 
-    playerPosList->removeTail();
+    if (checkFoodConsumption(snakesFood) == 2)
+    {
+        backLogCheck = 3;
+        snakesFood->generateFood(playerPosList);
+        mainGameMechsRef->setScore(mainGameMechsRef->incrementScore(1));
+    }
+    if (checkFoodConsumption(snakesFood) == -1)
+    {
+        backLogCheck = 1;
+
+        snakesFood->generateFood(playerPosList);
+        mainGameMechsRef->setScore(mainGameMechsRef->incrementScore(1));
+    }
+
+    if (backLogCheck > 0)
+    {
+        backLogCheck--;
+        playerPosList->insertHead(nextHead);
+
+    }
+
+    else
+    {
+        playerPosList->insertHead(nextHead); 
+        playerPosList->removeTail();
+    }
+
+    return 0;
+    
 
     
 }
-
-
 
 // More methods to be added
 
@@ -143,7 +172,7 @@ Player::Dir Player::getFSMState()
     return myDir; 
 }
 
-bool Player::checkFoodConsumption(Food* snakesFood)
+int Player::checkFoodConsumption(Food* snakesFood)
 {
     for (int i =0; i < snakesFood->bucketSize(); i++)
     {
@@ -151,10 +180,21 @@ bool Player::checkFoodConsumption(Food* snakesFood)
 
         if (playerPosList->getHeadElement().pos->x == currentFood.pos->x  && playerPosList->getHeadElement().pos->y == currentFood.pos->y)
         {
-            return true; 
+        if (currentFood.symbol == 'A')
+            {
+                return 1; 
+            }
+            else if(currentFood.symbol == 'a')
+            {
+                return 2;
+            }
+            else
+            {
+                return -1; 
+            }
         }
     }
-    return false;
+    return 0;
 
 }
 
@@ -164,7 +204,7 @@ void Player::increasePlayerLength()
 
     playerPosList->insertTail(objPos(newTail.pos->x,newTail.pos->y,'*')); 
 
-    mainGameMechsRef->setScore(playerPosList->getSize()-1); 
+    //mainGameMechsRef->setScore(playerPosList->getSize()-1); 
 }
 
 bool Player::checkSelfCollision()

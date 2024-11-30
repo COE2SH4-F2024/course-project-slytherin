@@ -17,8 +17,20 @@ void Food::generateFood(objPosArrayList* blockOff)
             unique = 1; // Assume food is unique
             RandNum_x = (rand() % (xRange - 2)) + 1; // Random x position
             RandNum_y = (rand() % (yRange - 2)) + 1; // Random y position
-            RandSymbol = (rand() % 93) + 33; // Random ASCII symbol
-
+            
+            
+            if(rand() % 4 == 0)
+            {
+                RandSymbol = 'A';
+            }
+            else if(rand() % 4 == 2)
+            {
+                RandSymbol = 'a';
+            }
+            else
+            {
+                RandSymbol = (rand() % 93) + 33;
+            }
             foodPos.pos->x = RandNum_x; // Assign x position
             foodPos.pos->y = RandNum_y; // Assign y position
             foodPos.symbol = RandSymbol; // Assign symbol
@@ -112,7 +124,7 @@ objPos Food::getFromBucket(int index)
 // Destructor to free allocated memory
 Food::~Food()
 {
-   // delete foodPos.pos; // Free memory for position
+   delete foodBucket;
 
 
 }
