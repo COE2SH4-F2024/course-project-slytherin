@@ -6,17 +6,18 @@ using namespace std;
 // Generates food items while avoiding conflicts with obstacles or duplicates
 void Food::generateFood(objPosArrayList* blockOff)
 {
-    int numItemsGen = 0; // Counter for generated food items
-    int i, j, unique, RandNum_x, RandNum_y, yRange = 10, xRange = 20; // Variables for random generation
+    int numberItems= 0; // Counter for generated food items
+    int i, j, RandNum_x, RandNum_y, foodUnique;
+    int rangeY = 10, rangeX = 20; // Variables for random generation
     char RandSymbol; // Random symbol for food
     bool existingInBucket = false; // Tracks if food is already in bucket
     srand(time(NULL)); // Seed random number generator
 
-    while (numItemsGen != 5) { // Generate 5 unique food items
+    while (numberItems != 5) { // Generate 5 Unique food items
         do {
-            unique = 1; // Assume food is unique
-            RandNum_x = (rand() % (xRange - 2)) + 1; // Random x position
-            RandNum_y = (rand() % (yRange - 2)) + 1; // Random y position
+            foodUnique = 1; // Assume food is Unique
+            RandNum_x = (rand() % (rangeX - 2)) + 1; // Random x position
+            RandNum_y = (rand() % (rangeY - 2)) + 1; // Random y position
             
             
             if(rand() % 4 == 0)
@@ -36,18 +37,18 @@ void Food::generateFood(objPosArrayList* blockOff)
             foodPos.symbol = RandSymbol; // Assign symbol
 
             if (RandSymbol == ' ' || RandSymbol == '$' || RandSymbol == '*') // Exclude invalid symbols
-                unique = 0;
+                foodUnique = 0;
 
             if (snakeBodyCheck(blockOff, RandNum_x, RandNum_y)) // Check snake body overlap
-                unique = 0;
+                foodUnique = 0;
 
             if ((existingInBucket = inBucketCheck()))// Check for duplicates in bucket
-                unique = 0;
+                foodUnique = 0;
 
-        } while (unique == 0); // Repeat until unique food is found
+        } while (foodUnique == 0); // Repeat until foodUnique food is found
 
-        foodBucket->insertElement(numItemsGen, foodPos); 
-        numItemsGen++; 
+        foodBucket->insertElement(numberItems, foodPos); 
+        numberItems++; 
     }
 
     return; 

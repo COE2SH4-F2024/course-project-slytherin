@@ -46,7 +46,7 @@ objPos& objPos::operator=(const objPos &a)
         // free existing 
         delete pos;
 
-        //Allocate new memory and copy values
+        //Allocate new memory and yRange values
         this->pos = new Pos;
         this->pos->x = a.pos->x;
         this->pos->y = a.pos->y;

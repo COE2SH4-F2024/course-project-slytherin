@@ -129,7 +129,7 @@ int Player::movePlayer(Food *snakesFood)
     {
         backLogCheck = 1;
         snakesFood->generateFood(playerPosList);
-        mainGameMechsRef->setScore(mainGameMechsRef->incrementScore(3));
+        mainGameMechsRef->setScore(mainGameMechsRef->incrementScore(2));
     }
 
     if (checkFoodConsumption(snakesFood) == 2)
@@ -181,11 +181,11 @@ int Player::checkFoodConsumption(Food* snakesFood)
 
         if (playerPosList->getHeadElement().pos->x == currentFood.pos->x  && playerPosList->getHeadElement().pos->y == currentFood.pos->y)
         {
-        if (currentFood.symbol == 'A') // if the food eaten is 'A' then you get 3 extra points
+        if (currentFood.symbol == 'A') // if the food eaten is 'A' then you get 2 extra points
             {
                 return 1; 
             }
-            else if(currentFood.symbol == 'a') // if the food eaten is 'a' then body frows by 3
+            else if(currentFood.symbol == 'a') // if the food eaten is 'a' then body grows by 3
             {
                 return 2;
             }

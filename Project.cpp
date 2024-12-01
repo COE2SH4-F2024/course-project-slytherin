@@ -171,7 +171,7 @@ void DrawScreen(void)
     // game info and instructrions displayed
    
     MacUILib_printf("\nScore: %d\n", gameMechInstance->getScore());
-    MacUILib_printf("A adds 3 to score\n");
+    MacUILib_printf("A adds 2 to score\n");
     MacUILib_printf("a adds 3 to snake length\n");
 
     MacUILib_printf("Pressed Key: %c\n", gameMechInstance->getPrevInput());
